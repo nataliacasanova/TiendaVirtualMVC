@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model1" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+  <EntityContainer Name="Model1Container" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Productos" EntityType="Model1.Producto" />
+    <EntitySet Name="Pedidos" EntityType="Model1.Pedido" />
+    <AssociationSet Name="ProductoPedido" Association="Model1.ProductoPedido">
+      <End Role="Producto" EntitySet="Productos" />
+      <End Role="Pedido" EntitySet="Pedidos" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Producto">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" Nullable="false" />
+    <Property Name="Cantidad" Type="Int32" Nullable="false" />
+    <Property Name="Descripcion" Type="String" Nullable="false" />
+    <Property Name="Precio" Type="Double" Nullable="false" />
+    <NavigationProperty Name="Pedido" Relationship="Model1.ProductoPedido" FromRole="Producto" ToRole="Pedido" />
+  </EntityType>
+  <EntityType Name="Pedido">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" Nullable="false" />
+    <NavigationProperty Name="Producto" Relationship="Model1.ProductoPedido" FromRole="Pedido" ToRole="Producto" />
+  </EntityType>
+  <Association Name="ProductoPedido">
+    <End Type="Model1.Producto" Role="Producto" Multiplicity="*" />
+    <End Type="Model1.Pedido" Role="Pedido" Multiplicity="*" />
+  </Association>
+</Schema>
